@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.arronlong.httpclientutil.httpmethod.HttpDeleteWithBody;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -22,6 +23,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpTrace;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
@@ -428,8 +431,15 @@ public class HttpClientUtil{
 				}
 				
 				//装填参数
-				HttpEntity entity = Utils.map2HttpEntity(nvps, config.map(), config.inenc());
-				
+				HttpEntity entity = null;
+				if (config.isBodyParam()){
+					entity = new StringEntity(config.bodyparam(),config.inenc());
+				}else if(config.isByteBodyParam()){
+					entity = new ByteArrayEntity(config.byteBodyParam());
+				}else{
+					entity = Utils.map2HttpEntity(nvps, config.map(), config.inenc());
+				}
+
 				//设置参数到请求对象中
 				((HttpEntityEnclosingRequestBase)request).setEntity(entity);
 				
@@ -557,7 +567,7 @@ public class HttpClientUtil{
 				request = new HttpPut(url);
 				break;
 			case 4:// HttpDelete
-				request = new HttpDelete(url);
+				request = new HttpDeleteWithBody(url);
 				break;
 			case 5:// HttpTrace
 				request = new HttpTrace(url);
