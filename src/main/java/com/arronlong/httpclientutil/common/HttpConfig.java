@@ -71,6 +71,26 @@ public class HttpConfig {
 	 */
 	private String json;
 
+
+	/**
+	 * 以bodyparam 字符串格式作为输入参数,字符类型参数
+	 */
+	private String bodyparam;
+
+	/**
+	 * 以byte[]格式作为输入参数,字符类型参数
+	 */
+	private byte[] byteBodyParam;
+	/**
+	 * 是否是body参数
+	 */
+	private boolean isBodyParam = false;
+
+	/**
+	 * 是否是byte[]作为body参数
+	 */
+	private boolean isByteBodyParam = false;
+
 	/**
 	 * 输入输出编码
 	 */
@@ -204,6 +224,42 @@ public class HttpConfig {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(Utils.ENTITY_JSON, json);
 		maps.set(map);
+		return this;
+	}
+
+	/**
+	 * @param bodyparam	以String格式字符串作为参数
+	 * @return	返回当前对象
+	 */
+	public HttpConfig bodyparam(String bodyparam) {
+		this.bodyparam = bodyparam;
+		return this;
+	}
+
+	/**
+	 * @param bytesParam以byte[]格式字符串作为参数
+	 * @return	返回当前对象
+	 */
+	public HttpConfig bytesBodyParam(byte[] bytesParam) {
+		this.byteBodyParam = bytesParam;
+		return this;
+	}
+
+	/**
+	 * @param bodyparam	以bodyparam格式字符串作为参数
+	 * @return	返回当前对象
+	 */
+	public HttpConfig isBodyParam(boolean isBodyParam) {
+		this.isBodyParam = isBodyParam;
+		return this;
+	}
+
+	/**
+	 * @param bodyparam	以bodyparam格式字符串作为参数
+	 * @return	返回当前对象
+	 */
+	public HttpConfig isByteBodyParam(boolean isByteParam) {
+		this.isByteBodyParam = isByteParam;
 		return this;
 	}
 	
@@ -363,6 +419,22 @@ public class HttpConfig {
 
 	public String json() {
 		return json;
+	}
+
+	public String bodyparam() {
+		return bodyparam;
+	}
+
+	public boolean isBodyParam() {
+		return isBodyParam;
+	}
+
+	public byte[] byteBodyParam() {
+		return byteBodyParam;
+	}
+
+	public boolean isByteBodyParam() {
+		return isByteBodyParam;
 	}
 	
 	public String encoding() {
