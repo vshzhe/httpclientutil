@@ -42,7 +42,7 @@ import com.arronlong.httpclientutil.exception.HttpProcessException;
  * @version 1.0
  */
 public class HttpClientUtil{
-	
+	//test
 	//默认采用的http协议的HttpClient对象
 	private static  HttpClient client4HTTP;
 	
